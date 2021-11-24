@@ -10,8 +10,6 @@ namespace Clock2
         public Clock()
         {
             InitializeComponent();
-            Width = 190;
-            Height = 60;
 
             this.TransparencyKey = BackColor;
             this.AllowTransparency = true;
@@ -20,20 +18,14 @@ namespace Clock2
             {
             }
 
-            //Location = new Point(-240, 1310);
-
-            //if (Screen.AllScreens.Length > 0)
-            //{
-            //    var ScreenTwoBounds = Screen.AllScreens[1].Bounds;
-            //    this.Location = new Point(ScreenTwoBounds.Right - Width, ScreenTwoBounds.Bottom - Height);
-            //}
-
             RefreshTask();
         }
 
         public void SetPosition(int x, int y)
         {
             Location = new Point(x, y);
+            Width = 190;
+            Height = 60;
         }
 
         private async void RefreshTask()
@@ -52,7 +44,7 @@ namespace Clock2
             var time = DateTime.Now;
 
             graphic.FillRectangle(brushRectangle, 10, 10, 175, 50);
-            graphic.DrawString(time.ToString("T"), this.Font, brushText, new PointF(0, 0));
+            graphic.DrawString(time.ToString("T"), this.Font, brushText, 0, 0);
         }
 
         #region Strange voodoo
@@ -74,6 +66,7 @@ namespace Clock2
                 m.Result = (IntPtr)HTCAPTION;
         }
 
+        //Sets the window position
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);

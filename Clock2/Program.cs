@@ -10,6 +10,8 @@ namespace Clock2
         {
             int x = 0;
             int y = 0;
+            bool drawPosition = false;
+
             for (int i = 0; i < args.Length; i++)
             {
                 var v = args[i].ToLower();
@@ -21,11 +23,19 @@ namespace Clock2
                 {
                     y = int.TryParse(args[i + 1], out int yPos) ? yPos : y;
                 }
+                else if (v == "dp" || v == "drawposition")
+                {
+                    drawPosition = true;
+                }
             }
 
             ApplicationConfiguration.Initialize();
+
             var clock = new Clock();
+
             clock.SetPosition(x, y);
+            clock.SetPositionDrawing(drawPosition);
+
             Application.Run(clock);
         }
     }

@@ -6,6 +6,10 @@ namespace Clock2
     {
         private readonly SolidBrush brushText = new(Color.FromArgb(255, 255, 255));
         private readonly SolidBrush brushRectangle = new(Color.FromArgb(0, 0, 1));
+        private readonly Font positionFont;
+        private readonly Font timeFont;
+
+        private bool drawPosition = false;
 
         public Clock()
         {
@@ -13,6 +17,9 @@ namespace Clock2
 
             this.TransparencyKey = BackColor;
             this.AllowTransparency = true;
+
+            this.positionFont = new Font(this.Font.FontFamily, 15);
+            this.timeFont = this.Font;
 
             if (SetWindowPos(this.Handle, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS))
             {
@@ -26,6 +33,12 @@ namespace Clock2
             Location = new Point(x, y);
             Width = 190;
             Height = 60;
+        }
+
+        //Draws the position instead of the time
+        public void SetPositionDrawing(bool drawPosition)
+        {
+            this.drawPosition = drawPosition;
         }
 
         private async void RefreshTask()
@@ -44,7 +57,11 @@ namespace Clock2
             var time = DateTime.Now;
 
             graphic.FillRectangle(brushRectangle, 10, 10, 175, 50);
-            graphic.DrawString(time.ToString("T"), this.Font, brushText, 0, 0);
+
+            if (drawPosition)
+                graphic.DrawString(Location.ToString(), positionFont, brushText, 15, 20); //draws position
+            else
+                graphic.DrawString(time.ToString("T"), timeFont, brushText, 0, 0); // draws time
         }
 
         #region Strange voodoo

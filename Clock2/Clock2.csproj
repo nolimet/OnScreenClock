@@ -6,6 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>none</DebugType>
+    <SignAssembly>True</SignAssembly>
+    <Copyright>Jesse Stam</Copyright>
+    <RepositoryUrl>https://github.com/nolimet/OnScreenClock</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyOriginatorKeyFile>C:\Users\jesse\source\repos\Clock2\sgKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
 </Project>
